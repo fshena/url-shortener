@@ -40,12 +40,14 @@ class BitlyServiceAdapter extends ServiceAdapterBase implements ServiceInterface
 
         $response = $this->client->Shorten(['longUrl' => $url]);
 
+        $response = $this->formatResponse($response);
+
         // if valid response from service store in cache
-        if (isset($response['url'])) {
+        if (isset($response['shortUrl'])) {
             $this->setCacheResponse($response);
         }
 
-        return $this->formatResponse($response);
+        return $response;
     }
 
     /**

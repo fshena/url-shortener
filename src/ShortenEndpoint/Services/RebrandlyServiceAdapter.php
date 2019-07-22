@@ -40,11 +40,13 @@ class RebrandlyServiceAdapter extends ServiceAdapterBase implements ServiceInter
 
         $response = $this->client->quickCreate($url)->export();
 
+        $response = $this->formatResponse($response);
+
         if (isset($response['shortUrl'])) {
             $this->setCacheResponse($response);
         }
 
-        return $this->formatResponse($response);
+        return $response;
     }
 
     /**

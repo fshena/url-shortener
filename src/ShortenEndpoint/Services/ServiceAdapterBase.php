@@ -50,9 +50,9 @@ abstract class ServiceAdapterBase
             return;
         }
 
-        $json = json_encode($this->formatResponse($data));
+        $json = json_encode($data);
 
-        $this->cache->set($data['long_url'], $json);
+        $this->cache->set($data['longUrl'], $json);
     }
 
     protected abstract function formatResponse(array $data): array;
