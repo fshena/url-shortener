@@ -8,8 +8,8 @@ services:
         networks:
             - frontend
             - backend
-#        volumes:
-#            - ../:/var/www/beat
+        volumes:
+            - ../:/var/www/beat
         environment:
             - APP_ENV=dev
             - BITLY_TOKEN=a60be5024a8ff4b5adf83299d169e4410488ff73
@@ -26,8 +26,8 @@ services:
             - backend
         ports:
             - "8787:80"
-#        volumes:
-#            - ../:/var/www/beat
+        volumes:
+            - ../:/var/www/beat
     redis:
         build: './redis'
         networks:
@@ -37,6 +37,16 @@ services:
             - "6379:6379"
         volumes:
             - redis:/data
+    composer:
+        restart: 'no'
+        image: composer
+        command: install
+        working_dir: /var/www/beat
+        depends_on:
+          - php-fpm
+          - apache
+        volumes:
+            - ../:/var/www/beat
 networks:
     backend:
         driver: "bridge"

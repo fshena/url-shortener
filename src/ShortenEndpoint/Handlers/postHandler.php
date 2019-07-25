@@ -15,12 +15,16 @@ use \ShortenEndpoint\Interfaces\ServiceInterface;
  */
 return function (Request $request, Response $response, array $args): Response {
 
-    $params = $request->getParsedBody();
+    $params = array_change_key_case($request->getParsedBody(), CASE_LOWER);
 
     /** @var ServiceInterface $shortenUrlService */
     $shortenUrlService = $this->shortenUrlFactory->create($params['provider']);
 
-    return $response->withJson([
-        'data' => $shortenUrlService->shortenUrl($params['url']),
-    ]);
+    $responseData = [];
+
+    if (isset($params['url'])) {
+        $responseData = $shortenUrlService->shortenUrl($params['url']);
+    }
+
+    return $response->withJson(['data' => $responseData]);
 };

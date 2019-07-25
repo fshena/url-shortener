@@ -22,7 +22,7 @@ class ServiceFactory
      */
     public function create($type = null): ServiceInterface
     {
-        $type = is_null($type) ?? strtolower($type);
+        $type = is_null($type) ? $type : strtolower($type);
 
         switch ($type) {
             case self::REBRANDLY:

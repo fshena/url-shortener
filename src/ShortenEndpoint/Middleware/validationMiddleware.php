@@ -18,7 +18,7 @@ use \ShortenEndpoint\Services\ServiceFactory;
 return function (Request $request, Response $response, callable $next): Response {
     $errors = [];
 
-    $params = $request->getParsedBody();
+    $params = array_change_key_case($request->getParsedBody(), CASE_LOWER);
 
     /** @var ServiceFactory $serviceFactory */
     $serviceFactory = $this->get('shortenUrlFactory');
